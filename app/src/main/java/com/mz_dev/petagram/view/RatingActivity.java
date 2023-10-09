@@ -36,11 +36,6 @@ public class RatingActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            pets = (ArrayList<Pet>) bundle.getSerializable(PETS_OBJ);
-        }
-        if (pets == null) pets = new ArrayList<>();
         initUI();
         initAdapter();
     }

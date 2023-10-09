@@ -1,4 +1,4 @@
-package com.mz_dev.petagram.fragment;
+package com.mz_dev.petagram.view.fragment;
 
 import android.os.Bundle;
 

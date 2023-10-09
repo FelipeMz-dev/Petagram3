@@ -18,8 +18,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.mz_dev.petagram.OptionsMenuHandler;
 import com.mz_dev.petagram.adapter.PageAdapter;
 import com.mz_dev.petagram.R;
-import com.mz_dev.petagram.fragment.HomeFragment;
-import com.mz_dev.petagram.fragment.ProfileFragment;
+import com.mz_dev.petagram.view.fragment.HomeFragment;
+import com.mz_dev.petagram.view.fragment.ProfileFragment;
 import com.mz_dev.petagram.pojo.ImageProfile;
 import com.mz_dev.petagram.pojo.Pet;
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<Fragment> addFragments(){
-        fragments.add(new HomeFragment(pets));
+        fragments.add(new HomeFragment());
         fragments.add(new ProfileFragment(pets.get(0), images));
         return fragments;
     }
@@ -96,20 +96,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goRatingActivity(){
-        HomeFragment homeFragment = (HomeFragment) fragments.get(0);
-        ArrayList<Pet> favoritePets = homeFragment.getRvMainPetsList();
         Intent intent = new Intent(this, RatingActivity.class);
-        intent.putExtra(PETS_OBJ, favoritePets);
         startActivity(intent);
     }
 
     private void initPetList(){
         pets = new ArrayList<>();
         pets.add(new Pet("Simon", R.drawable.pet1, 20));
-        pets.add(new Pet("Negra", R.drawable.pet2, 5));
-        pets.add(new Pet("Lulu", R.drawable.pet3, 6));
-        pets.add(new Pet("Luna", R.drawable.pet4, 5));
-        pets.add(new Pet("Midas", R.drawable.pet5, 12));
     }
 
     private void initImagesProfile(){

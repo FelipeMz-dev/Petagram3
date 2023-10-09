@@ -1,4 +1,4 @@
-package com.mz_dev.petagram.fragment;
+package com.mz_dev.petagram.view.fragment;
 
 import android.os.Bundle;
 
@@ -13,20 +13,23 @@ import android.view.ViewGroup;
 import com.mz_dev.petagram.R;
 import com.mz_dev.petagram.adapter.PetAdapter;
 import com.mz_dev.petagram.pojo.Pet;
+import com.mz_dev.petagram.presenter.HomeFragmentPresenter;
+import com.mz_dev.petagram.presenter.IHomeFragmentPresenter;
 
 import java.util.ArrayList;
 
 /**
  * Created by FelipeMz on 25/09/2023
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IHomeFragmentView {
 
     private RecyclerView rvMainPetsList;
-    private final ArrayList<Pet> pets;
+    private ArrayList<Pet> pets;
+    private IHomeFragmentPresenter presenter;
 
-    public HomeFragment(ArrayList<Pet> pets) {
+    /*public HomeFragment(ArrayList<Pet> pets) {
         this.pets = pets;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,28 +37,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initUI(view);
-        initManager();
-        initAdapter();
+        presenter = new HomeFragmentPresenter(this, getContext());
         return view;
     }
 
+    /*
     public ArrayList<Pet> getRvMainPetsList(){
-        PetAdapter petAdapter = (PetAdapter) rvMainPetsList.getAdapter();
         return petAdapter.getFavoritePets();
-    }
+    }*/
 
     private void initUI(View view){
         rvMainPetsList = view.findViewById(R.id.rvMainPetsList);
     }
 
-    private void initManager(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+    @Override
+    public void generateLinearLayoutVertical() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvMainPetsList.setLayoutManager(linearLayoutManager);
     }
 
-    private void initAdapter(){
-        PetAdapter rvAdapter = new PetAdapter(pets, getActivity());
-        rvMainPetsList.setAdapter(rvAdapter);
+    @Override
+    public PetAdapter makePetAdapter(ArrayList<Pet> pets) {
+        PetAdapter petAdapter = new PetAdapter(pets, getActivity());
+        return petAdapter;
+    }
+
+    @Override
+    public void initPetAdapter(PetAdapter petAdapter) {
+        rvMainPetsList.setAdapter(petAdapter);
     }
 }
