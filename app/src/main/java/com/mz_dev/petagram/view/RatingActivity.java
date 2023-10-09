@@ -16,28 +16,25 @@ import com.mz_dev.petagram.OptionsMenuHandler;
 import com.mz_dev.petagram.adapter.PetAdapter;
 import com.mz_dev.petagram.R;
 import com.mz_dev.petagram.pojo.Pet;
+import com.mz_dev.petagram.presenter.IRatingActivityPresenter;
+import com.mz_dev.petagram.presenter.RatingActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class RatingActivity extends AppCompatActivity {
+public class RatingActivity extends AppCompatActivity implements IRatingActivityView {
 
-    private ArrayList<Pet> pets;
     private RecyclerView rvRatingPetsList;
+    private IRatingActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
-
-        Toolbar myToolBar = findViewById(R.id.myToolBar);
-        setSupportActionBar(myToolBar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        initTollBar();
         initUI();
-        initAdapter();
+        presenter = new RatingActivityPresenter(this, this);
     }
 
     @Override
@@ -52,17 +49,33 @@ public class RatingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initTollBar(){
+        Toolbar myToolBar = findViewById(R.id.myToolBar);
+        setSupportActionBar(myToolBar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void initUI(){
         rvRatingPetsList = findViewById(R.id.rvRatingPetsList);
+    }
+
+    @Override
+    public void generateLinearLayoutVertical(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvRatingPetsList.setLayoutManager(linearLayoutManager);
     }
 
-    private void initAdapter(){
-        Collections.reverse(pets);
-        PetAdapter adapter = new PetAdapter(pets, this);
-        rvRatingPetsList.setAdapter(adapter);
-        adapter.setRatingEnabled(true);
+    @Override
+    public PetAdapter makePetAdapter(ArrayList<Pet> pets) {
+        PetAdapter petAdapter = new PetAdapter(pets, this);
+        return petAdapter;
+    }
+
+    @Override
+    public void initPetAdapter(PetAdapter petAdapter) {
+        rvRatingPetsList.setAdapter(petAdapter);
+        petAdapter.setRatingEnabled(true);
     }
 }

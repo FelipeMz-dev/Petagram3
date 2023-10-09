@@ -20,11 +20,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Toolbar myToolBar = findViewById(R.id.myToolBar);
-        setSupportActionBar(myToolBar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        initTollBar();
     }
 
     @Override
@@ -38,5 +34,12 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (OptionsMenuHandler.handleOptionsItemSelected(item, this)) return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initTollBar(){
+        Toolbar myToolBar = findViewById(R.id.myToolBar);
+        setSupportActionBar(myToolBar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

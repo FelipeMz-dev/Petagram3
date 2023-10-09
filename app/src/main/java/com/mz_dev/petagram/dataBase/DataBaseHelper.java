@@ -92,19 +92,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Pet> getLastFiveRatedPets(){
         ArrayList<Pet> pets = new ArrayList<>();
-        String queryPetRating = "SELECT * FROM " + ConstDataBase.TABLE_PET_RATING + " ORDER BY " +
-                ConstDataBase.TABLE_PET_RATING_RATING + " DESC LIMIT 5";
+        String queryPetRating = "SELECT p." +
+                ConstDataBase.TABLE_PETS_ID + ", p." +
+                ConstDataBase.TABLE_PETS_NAME + ", p." +
+                ConstDataBase.TABLE_PETS_IMAGE + " " +
+                "FROM " + ConstDataBase.TABLE_PETS + " p " +
+                "JOIN " + ConstDataBase.TABLE_PET_RATING + " pr ON p." +
+                ConstDataBase.TABLE_PETS_ID + " = pr." +
+                ConstDataBase.TABLE_PET_RATING_PET_ID + " " +
+                "ORDER BY pr." + ConstDataBase.TABLE_PET_RATING_ID + " " +
+                "DESC LIMIT 5;";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryPetRating, null);
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             int image = cursor.getInt(2);
-            int rating = cursor.getInt(3);
-            Pet pet = new Pet(id, name, image, rating);
+            Pet pet = new Pet(id, name, image, 0);
+            int rating = getPetRating(pet);
+            pet.setRating(rating);
             pets.add(pet);
         }
         db.close();
         return pets;
+    }
+
+    public Pet getFirstPet(){
+        Pet pet = new Pet();
+        String query = "SELECT * FROM " + ConstDataBase.TABLE_PETS +
+                " ORDER BY " + ConstDataBase.TABLE_PETS_ID + " ASC LIMIT 1;";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int image = cursor.getInt(2);
+            pet = new Pet(id, name, image, 0);
+        }
+        db.close();
+        return pet;
     }
 }

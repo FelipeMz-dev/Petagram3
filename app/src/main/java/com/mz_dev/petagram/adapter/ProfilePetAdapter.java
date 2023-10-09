@@ -10,15 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mz_dev.petagram.R;
-import com.mz_dev.petagram.pojo.ImageProfile;
+import com.mz_dev.petagram.pojo.ImagePublication;
 
 import java.util.ArrayList;
 
 public class ProfilePetAdapter extends RecyclerView.Adapter<ProfilePetAdapter.PetProfileViewHolder> {
 
-    private ArrayList<ImageProfile> images;
+    private ArrayList<ImagePublication> images;
 
-    public ProfilePetAdapter(ArrayList<ImageProfile> images) {
+    public ProfilePetAdapter(ArrayList<ImagePublication> images) {
         this.images = images;
     }
 
@@ -31,7 +31,7 @@ public class ProfilePetAdapter extends RecyclerView.Adapter<ProfilePetAdapter.Pe
 
     @Override
     public void onBindViewHolder(@NonNull PetProfileViewHolder holder, int position) {
-        ImageProfile image = images.get(position);
+        ImagePublication image = images.get(position);
         holder.ivProfilePet.setImageResource(image.getImage());
         holder.tvProfileRatingImage.setText(String.valueOf(image.getRating()));
     }

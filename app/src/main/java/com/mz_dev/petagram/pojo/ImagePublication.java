@@ -1,10 +1,10 @@
 package com.mz_dev.petagram.pojo;
 
-public class ImageProfile {
+public class ImagePublication {
     private int image;
     private int rating;
 
-    public ImageProfile(int image, int rating) {
+    public ImagePublication(int image, int rating) {
         this.image = image;
         this.rating = rating;
     }

@@ -20,7 +20,7 @@ import com.mz_dev.petagram.adapter.PageAdapter;
 import com.mz_dev.petagram.R;
 import com.mz_dev.petagram.view.fragment.HomeFragment;
 import com.mz_dev.petagram.view.fragment.ProfileFragment;
-import com.mz_dev.petagram.pojo.ImageProfile;
+import com.mz_dev.petagram.pojo.ImagePublication;
 import com.mz_dev.petagram.pojo.Pet;
 
 import java.util.ArrayList;
@@ -29,8 +29,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private final ArrayList<Fragment> fragments = new ArrayList<>();
-    private ArrayList<Pet> pets;
-    private ArrayList<ImageProfile> images;
     private ImageButton btnStar;
     private Toolbar myToolBar;
     private TabLayout tabLayout;
@@ -46,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         initUI();
         initListener();
-        initPetList();
-        initImagesProfile();
         setUpViewPager();
 
         setSupportActionBar(myToolBar);
@@ -68,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Fragment> addFragments(){
         fragments.add(new HomeFragment());
-        fragments.add(new ProfileFragment(pets.get(0), images));
+        fragments.add(new ProfileFragment());
         return fragments;
     }
 
@@ -98,24 +94,5 @@ public class MainActivity extends AppCompatActivity {
     private void goRatingActivity(){
         Intent intent = new Intent(this, RatingActivity.class);
         startActivity(intent);
-    }
-
-    private void initPetList(){
-        pets = new ArrayList<>();
-        pets.add(new Pet("Simon", R.drawable.pet1, 20));
-    }
-
-    private void initImagesProfile(){
-        images = new ArrayList<>();
-        images.add(new ImageProfile(R.drawable.pet1, 12));
-        images.add(new ImageProfile(R.drawable.pet1, 8));
-        images.add(new ImageProfile(R.drawable.pet1, 2));
-        images.add(new ImageProfile(R.drawable.pet1, 20));
-        images.add(new ImageProfile(R.drawable.pet1, 7));
-        images.add(new ImageProfile(R.drawable.pet1, 17));
-        images.add(new ImageProfile(R.drawable.pet1, 21));
-        images.add(new ImageProfile(R.drawable.pet1, 14));
-        images.add(new ImageProfile(R.drawable.pet1, 5));
-        images.add(new ImageProfile(R.drawable.pet1, 2));
     }
 }

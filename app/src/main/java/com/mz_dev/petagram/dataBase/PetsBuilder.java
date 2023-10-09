@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import com.mz_dev.petagram.R;
+import com.mz_dev.petagram.pojo.ImagePublication;
 import com.mz_dev.petagram.pojo.Pet;
 
 import java.util.ArrayList;
@@ -51,5 +52,25 @@ public class PetsBuilder {
     public ArrayList<Pet> getLastRatedPets(){
         DataBaseHelper dbHelper = new DataBaseHelper(context);
         return dbHelper.getLastFiveRatedPets();
+    }
+
+    public ArrayList<ImagePublication> getImagesPublication() {
+        ArrayList<ImagePublication> images = new ArrayList<>();
+        images.add(new ImagePublication(R.drawable.pet1, 12));
+        images.add(new ImagePublication(R.drawable.pet1, 8));
+        images.add(new ImagePublication(R.drawable.pet1, 2));
+        images.add(new ImagePublication(R.drawable.pet1, 20));
+        images.add(new ImagePublication(R.drawable.pet1, 7));
+        images.add(new ImagePublication(R.drawable.pet1, 17));
+        images.add(new ImagePublication(R.drawable.pet1, 21));
+        images.add(new ImagePublication(R.drawable.pet1, 14));
+        images.add(new ImagePublication(R.drawable.pet1, 5));
+        images.add(new ImagePublication(R.drawable.pet1, 2));
+        return images;
+    }
+
+    public Pet getFirstPet(){
+        DataBaseHelper dbHelper = new DataBaseHelper(context);
+        return dbHelper.getFirstPet();
     }
 }

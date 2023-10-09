@@ -24,12 +24,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements IHomeFragmentView {
 
     private RecyclerView rvMainPetsList;
-    private ArrayList<Pet> pets;
     private IHomeFragmentPresenter presenter;
-
-    /*public HomeFragment(ArrayList<Pet> pets) {
-        this.pets = pets;
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,11 +35,6 @@ public class HomeFragment extends Fragment implements IHomeFragmentView {
         presenter = new HomeFragmentPresenter(this, getContext());
         return view;
     }
-
-    /*
-    public ArrayList<Pet> getRvMainPetsList(){
-        return petAdapter.getFavoritePets();
-    }*/
 
     private void initUI(View view){
         rvMainPetsList = view.findViewById(R.id.rvMainPetsList);

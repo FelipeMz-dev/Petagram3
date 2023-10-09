@@ -25,6 +25,10 @@ public class Pet implements Serializable {
         this.rating = rating;
     }
 
+    public Pet() {
+
+    }
+
     public void setRating(int rating) {
         this.rating = rating;
     }
